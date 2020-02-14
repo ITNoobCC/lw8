@@ -1,27 +1,37 @@
 function pulloutArray(array) {
+
   if (Array.isArray(array)) {
     var resultArray = [];
-    for (let index = 0; index < array.length; index++) {
-      if (Array.isArray(array[index])) {
-        for (let j = 0; j < array[index].length; j++) {
-          if ((array[index][j] !== null && array[index][j] !== undefined) && (!Number.isNaN(array[index][j])) && (typeof (array[index][j]) !== 'string')) {
-            resultArray.push(array[index][j]);
+
+    for (var i = 0; i < array.length; i++) {
+      if (Array.isArray(array[i])) {
+        for (var j = 0; j < array[i].length; j++) {
+          if (
+            typeof array[i][j] === 'number' &&
+            !isNaN(array[i][j]) &&
+            array[i][j] !== null
+          ) {
+            resultArray.push(array[i][j]);
           }
+          // console.log(array[i][j]);
         }
-      } else if ((array[index] !== null && array[index] !== undefined) && (!Number.isNaN(array[index])) && (typeof (array[index]) !== 'string')) {
-        resultArray.push(array[index]);
+      } else if (
+        typeof array[i] === 'number' &&
+        !isNaN(array[i]) &&
+        array[i] !== null
+      ) {
+        resultArray.push(array[i]);
       }
     }
-    return (resultArray);
   } else {
-    return false;
+    return null;
   }
+
+  return resultArray;
 }
 
-console.log(pulloutArray([1, undefined, 3])); // return [1, 3]
+console.log(pulloutArray([1, 2, 3])); // return [1, 2, 3]
 console.log(pulloutArray([])); // return []
-console.log(pulloutArray());
-console.log(pulloutArray([1, [2, 3, undefined], 5])); // return [1, 2, 3, 5]
+console.log(pulloutArray([1, [2, 3, 4], 5])); // return [1, 2, 3, 4, 5]
 console.log(pulloutArray([1, [2, 3, 4], 5, [1]])); // return [1, 2, 3, 4, 5, 1]
-console.log(pulloutArray([1, [3, 4], null, NaN, 'test'])); // return [1, 1]
-console.log(pulloutArray([1, [1, null, 2, 'test'], 'qwerty', null, 2, NaN, ['test', null, NaN, 'text']])); // 
+console.log(pulloutArray([1, [1], null, NaN, ['test']])); // return [1, 1]

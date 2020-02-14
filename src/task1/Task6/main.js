@@ -15,19 +15,3 @@ function replaceString(text, sourceSubstring, replaceSubstring) {
 console.log(replaceString('There is simple text', 'simple text', 'my substring'));
 console.log(replaceString('There is simple text', 'nothing', 'my substring'));
 console.log(replaceString(null, NaN, undefined));
-
-// function replaceString(str, sourceStr, replaceStr) {
-//   // str - произвольная строка
-//   // sourceStr - искомая строка
-//   // replaceStr - строка на которую мы меняем искомую строку
-//   if (typeof str === 'string' && typeof sourceStr === 'string' && typeof replaceStr === 'string') {
-//     if (str.indexOf(sourceStr) >= 0) {
-//       str = str.slice(0, str.indexOf(sourceStr)) + replaceStr + str.slice(str.indexOf(sourceStr) + sourceStr.length, str.length);
-//       return str;
-//     } else {
-//       return null;
-//     }
-//   } else {
-//     return null;
-//   }
-// }

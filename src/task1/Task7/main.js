@@ -1,83 +1,98 @@
-var fieldSize = 5;
-var soldier1 = {
-  name: 'John',
+var playerOne = {
+  name: 'Player one',
   health: 100,
   currentCoordinates: { x: 0, y: 0 },
-  shot: function () {
-    // console.log();
-    if (this.health > 0) {
-      var shotX = Math.floor(Math.random() * fieldSize);
-      var shotY = Math.floor(Math.random() * fieldSize);
-      console.log(this.name, 'выстрелил в координаты [' + shotX + ';' + shotY + ']');
-      return [shotX, shotY];
+  shot: function() {
+    do {
+      var playerOneShotX = Math.floor(Math.random() * 3);
+      var playerOneShotY = Math.floor(Math.random() * 3);
+    } while (playerOneShotX === playerOne.currentCoordinates.x && playerOneShotY === playerOne.currentCoordinates.y);
+
+    console.log('Выстрел 1 игрока: ', playerOneShotX, playerOneShotY);
+    return [playerOneShotX,playerOneShotY];
+  },
+  spawn: function(x, y) {
+    (this.currentCoordinates.x = x), (this.currentCoordinates.y = y);
+    console.log('Spawn player one:', x, y);
+  },
+  checkDamage: function(playerTwoShotX, playerTwoShotY) {
+    if (
+      playerTwoShotX === playerOne.currentCoordinates.x &&
+      playerTwoShotY === playerOne.currentCoordinates.y
+    ) {
+      if (playerOne.health > 0) {
+        for (var i = 0; i < 25; i++) {
+          playerOne.health--;
+        }
+      }
     }
+  }
+};
+var playerTwo = {
+  name: 'Player two',
+  health: 100,
+  currentCoordinates: { x: 0, y: 0 },
+  shot: function() {
+    do {
+      var playerTwoShotX = Math.floor(Math.random() * 3);
+      var playerTwoShotY = Math.floor(Math.random() * 3);
+    } while (playerTwoShotX === playerTwo.currentCoordinates.x && playerTwoShotY === playerTwo.currentCoordinates.y);
+
+    console.log('Выстрел 2 игрока: ', playerTwoShotX, playerTwoShotY);
+    return [playerTwoShotX,playerTwoShotY];
   },
-  spawn: function () {
-    this.currentCoordinates.x = Math.floor(Math.random() * fieldSize);
-    this.currentCoordinates.y = Math.floor(Math.random() * fieldSize);
-    console.log(this.name + ' spawned at ' + this.currentCoordinates.x + ' ; ' + this.currentCoordinates.y);
+  spawn: function(x, y) {
+    (this.currentCoordinates.x = x), (this.currentCoordinates.y = y);
+    console.log('Spawn player two:', x, y);
   },
-  checkDamage: function (x, y) {
-    if (x === this.currentCoordinates.x && y === this.currentCoordinates.y) {
-      this.health -= 25;
-      return ('По ' + this.name + '`у попали ');
-    } else {
-      return ('По ' + this.name + '`у промазали ');
+  checkDamage: function(playerOneShotX, playerOneShotY) {
+    if (
+      playerOneShotX === playerTwo.currentCoordinates.x &&
+      playerOneShotY === playerTwo.currentCoordinates.y
+    ) {
+      if (playerTwo.health > 0) {
+        for (var i = 0; i < 25; i++) {
+          playerTwo.health--;
+        }
+      }
     }
   }
 };
 
-var soldier2 = {
-  name: 'Gook',
-  health: 100,
-  currentCoordinates: { x: 0, y: 0 },
-  shot: function () {
-    // console.log(x, y);
-    if (this.health > 0) {
-      var shotX = Math.floor(Math.random() * fieldSize);
-      var shotY = Math.floor(Math.random() * fieldSize);
-      console.log(this.name, 'выстрелил в координаты [' + shotX + ';' + shotY + ']');
-      return [shotX, shotY];
-    }
-  },
-  spawn: function () {
-    this.currentCoordinates.x = Math.floor(Math.random() * fieldSize);
-    this.currentCoordinates.y = Math.floor(Math.random() * fieldSize);
-    console.log(this.name + ' spawned at ' + this.currentCoordinates.x + ' ; ' + this.currentCoordinates.y);
-  },
-  checkDamage: function (x, y) {
-    if (x === this.currentCoordinates.x && y === this.currentCoordinates.y) {
-      this.health -= 25;
-      return ('По ' + this.name + '`у попали ');
-    } else {
-      return ('По ' + this.name + '`у промазали ');
-    }
-  }
-};
-soldier1.spawn();
-soldier2.spawn();
+function spawnSolider() {
+  var playerOneSpawnX;
+  var playerOneSpawnY;
+  var playerTwoSpawnX;
+  var playerTwoSpawnY;
 
-setInterval(function () {
-  if (soldier1.health > 0 && soldier2.health > 0) {
-    if (soldier1.health > 0) {
-      arr = soldier1.shot();
-      console.log(soldier2.checkDamage(arr[0], arr[1]));
-    }
-    // arr = soldier1.shot();
-    // soldier2.checkDamage(arr[0], arr = [1]);
-    if (soldier2.health > 0) {
-      arr1 = soldier2.shot();
-      console.log(soldier1.checkDamage(arr1[0], arr1[1]));
-    }
-    // arr1 = soldier2.shot();
-    // soldier1.checkDamage(arr1[0], arr1 = [1]);
+  do {
+    playerOneSpawnX = Math.floor(Math.random() * 3);
+    playerOneSpawnY = Math.floor(Math.random() * 3);
 
-    if (soldier1.health <= 0) {
-      console.log(soldier1.name, 'проиграл! :с');
-      console.log(soldier2.name, 'выиграл! :3');
-    } else if (soldier2.health <= 0) {
-      console.log(soldier1.name, 'проиграл! :с');
-      console.log(soldier2.name, 'выиграл! :3');
-    }
+    playerTwoSpawnX = Math.floor(Math.random() * 3);
+    playerTwoSpawnY = Math.floor(Math.random() * 3);
+  } while (
+    playerOneSpawnX === playerTwoSpawnX &&
+    playerOneSpawnY === playerTwoSpawnY
+  );
+  playerOne.spawn(playerOneSpawnX, playerOneSpawnY);
+  playerTwo.spawn(playerTwoSpawnX, playerTwoSpawnY);
+}
+
+spawnSolider();
+setInterval(function() {
+  var playerOneShot = playerOne.shot(); // return { x: sdsd, y: 2}
+  playerTwo.checkDamage(playerOneShot[0], playerOneShot[1]);
+
+  var playerTwoShot = playerTwo.shot();
+  playerOne.checkDamage(playerTwoShot[0], playerTwoShot[1]);
+
+  if (playerTwo.health === 0) {
+    console.log('Победил - ', playerOne.name);
+    console.log('Проиграл - ', playerTwo.name);
+  } else if (playerOne.health === 0) {
+    console.log('Победил - ', playerTwo.name);
+    console.log('Проиграл - ', playerOne.name);
   }
+  clearInterval(playerOne.health === 0 || playerTwo.health === 0);
 }, 100);
