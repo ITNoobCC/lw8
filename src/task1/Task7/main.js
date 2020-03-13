@@ -1,18 +1,25 @@
+'use strict';
 var playerOne = {
   name: 'Player one',
   health: 100,
   currentCoordinates: { x: 0, y: 0 },
   shot: function() {
+    var playerOneShotX;
+    var playerOneShotY;
     do {
-      var playerOneShotX = Math.floor(Math.random() * 3);
-      var playerOneShotY = Math.floor(Math.random() * 3);
-    } while (playerOneShotX === playerOne.currentCoordinates.x && playerOneShotY === playerOne.currentCoordinates.y);
+      playerOneShotX = Math.floor(Math.random() * 3);
+      playerOneShotY = Math.floor(Math.random() * 3);
+    } while (
+      playerOneShotX === playerOne.currentCoordinates.x &&
+      playerOneShotY === playerOne.currentCoordinates.y
+    );
 
     console.log('Выстрел 1 игрока: ', playerOneShotX, playerOneShotY);
-    return [playerOneShotX,playerOneShotY];
+    return [playerOneShotX, playerOneShotY];
   },
   spawn: function(x, y) {
-    (this.currentCoordinates.x = x), (this.currentCoordinates.y = y);
+    (this.currentCoordinates.x = x);
+    (this.currentCoordinates.y = y);
     console.log('Spawn player one:', x, y);
   },
   checkDamage: function(playerTwoShotX, playerTwoShotY) {
@@ -33,16 +40,22 @@ var playerTwo = {
   health: 100,
   currentCoordinates: { x: 0, y: 0 },
   shot: function() {
+    var playerTwoShotX;
+    var playerTwoShotY;
     do {
-      var playerTwoShotX = Math.floor(Math.random() * 3);
-      var playerTwoShotY = Math.floor(Math.random() * 3);
-    } while (playerTwoShotX === playerTwo.currentCoordinates.x && playerTwoShotY === playerTwo.currentCoordinates.y);
+      playerTwoShotX = Math.floor(Math.random() * 3);
+      playerTwoShotY = Math.floor(Math.random() * 3);
+    } while (
+      playerTwoShotX === playerTwo.currentCoordinates.x &&
+      playerTwoShotY === playerTwo.currentCoordinates.y
+    );
 
     console.log('Выстрел 2 игрока: ', playerTwoShotX, playerTwoShotY);
-    return [playerTwoShotX,playerTwoShotY];
+    return [playerTwoShotX, playerTwoShotY];
   },
   spawn: function(x, y) {
-    (this.currentCoordinates.x = x), (this.currentCoordinates.y = y);
+    (this.currentCoordinates.x = x);
+    (this.currentCoordinates.y = y);
     console.log('Spawn player two:', x, y);
   },
   checkDamage: function(playerOneShotX, playerOneShotY) {
@@ -96,3 +109,5 @@ setInterval(function() {
   }
   clearInterval(playerOne.health === 0 || playerTwo.health === 0);
 }, 100);
+
+module.exports = {playerOne,playerTwo}
