@@ -24,6 +24,9 @@ function replaceString(text, sourceSubstring, replaceSubstring) {
 console.log(
   replaceString('There is simple text', 'simple text', 'my substring')
 );
+console.log(
+  replaceString('Hello world', 'world', 'world Sem')
+);
 console.log(replaceString('There is simple text', 'nothing', 'my substring'));
 console.log(replaceString(null, NaN, undefined));
 

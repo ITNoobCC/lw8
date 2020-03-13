@@ -1,7 +1,7 @@
 'use strict';
-var cashbox = {
-  amount: 10,
-  addPayment: function(payment) {
+class cashbox  {
+  amount = 10;
+  addPayment = function(payment) {
     if (
       payment.amount > 0 &&
       typeof payment.amount === 'number' &&
@@ -14,8 +14,8 @@ var cashbox = {
       console.log('Error enter!');
       return 'Error enter!';
     }
-  },
-  refundPayment: function(refund) {
+  };
+  refundPayment = function(refund) {
     if (
       this.amount > 0 &&
       this.amount - refund.amount >= 0 &&
@@ -29,12 +29,13 @@ var cashbox = {
       console.log('Error enter!');
       return 'Error enter!';
     }
-  }
+  };
 };
-
-cashbox.addPayment({ amount: -20, info: 'Оплата штрафа' });
-cashbox.addPayment({ amount: 10, info: 'Оплата ЖКХ' });
-cashbox.refundPayment({ amount: 10, info: 'Возврат клиенту' });
-cashbox.refundPayment({ amount: 10, info: 'Возврат клиенту' });
+// var test = new cashbox();
+// test.addPayment({ amount: 20, info: 'Оплата штрафа' });
+// cashbox.addPayment({ amount: -20, info: 'Оплата штрафа' });
+// cashbox.addPayment({ amount: 10, info: 'Оплата ЖКХ' });
+// cashbox.refundPayment({ amount: 10, info: 'Возврат клиенту' });
+// cashbox.refundPayment({ amount: 10, info: 'Возврат клиенту' });
 
 module.exports = cashbox;
