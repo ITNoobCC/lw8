@@ -12,41 +12,10 @@ class Song {
 
 class PlayerList {
   constructor(songs) {
-    this.volume = 50;
     this.songs = songs || [];
     this.currentTrackIndex = 0;
     if (songs && songs.length !== 0) {
       this.currentTrackName = songs[this.currentTrackIndex].getSongName();
-    }
-  }
-  volumeAdd(vol) {
-    if (this.volume < 100) {
-      if (this.volume + vol < 100) {
-        this.volume += vol;
-        console.log("Звук прибавлен на: " + vol);
-        return "Звук прибавлен на: " + vol;
-      } else {
-        console.log("Нельзя прибавить на столько громко!");
-        return "Нельзя прибавить на столько громко!";
-      }
-    } else {
-      console.log("Максимальная громкость!");
-      return "Максимальная громкость!";
-    }
-  }
-  volumeSubtract(vol) {
-    if (this.volume > 0) {
-      if (this.volume - vol > 0) {
-        this.volume -= vol;
-        console.log("Звук убавлен на: " + vol);
-        return "Звук убавлен на: " + vol;
-      } else {
-        console.log("Нельзя убавить на столько тихо!");
-        return "Нельзя убавить на столько тихо!";
-      }
-    } else {
-      console.log("Минимальная громкость громкость!");
-      return "Минимальная громкость громкость!";
     }
   }
   next() {
@@ -82,6 +51,7 @@ class PlayerList {
 
 class Player {
   constructor(playerList) {
+    this.volume = 50;
     this.playerList = new PlayerList(playerList);
     this.status = "stop";
   }
@@ -113,10 +83,28 @@ class Player {
     }
   }
   volumeAdd(vol) {
-    this.playerList.volumeAdd(vol);
+    if (this.volume < 100) {
+      if (this.volume + vol < 100) {
+        this.volume += vol;
+        return "Звук прибавлен на: " + vol;
+      } else {
+        return "Нельзя прибавить на столько громко!";
+      }
+    } else {
+      return "Максимальная громкость!";
+    }
   }
   volumeSubtract(vol) {
-    this.playerList.volumeSubtract(vol);
+    if (this.volume > 0) {
+      if (this.volume - vol > 0) {
+        this.volume -= vol;
+        return "Звук убавлен на: " + vol;
+      } else {
+        return "Нельзя убавить на столько тихо!";
+      }
+    } else {
+      return "Минимальная громкость громкость!";
+    }
   }
   next() {
     this.playerList.next();
