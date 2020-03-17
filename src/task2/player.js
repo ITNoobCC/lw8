@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class Song {
   constructor(songName, songLength) {
@@ -20,39 +20,33 @@ class PlayerList {
     }
   }
   volumeAdd(vol) {
-    if (this.volume < 100)
-    {
-      if (this.volume + vol < 100)
-      {
+    if (this.volume < 100) {
+      if (this.volume + vol < 100) {
         this.volume += vol;
-        console.log('Звук прибавлен на: ' + vol);
-        return 'Звук прибавлен на: ' + vol;
+        console.log("Звук прибавлен на: " + vol);
+        return "Звук прибавлен на: " + vol;
       } else {
-        console.log('Нельзя прибавить на столько громко!');
-        return 'Нельзя прибавить на столько громко!';
+        console.log("Нельзя прибавить на столько громко!");
+        return "Нельзя прибавить на столько громко!";
       }
-    }
-    else {
-      console.log('Максимальная громкость!');
-      return 'Максимальная громкость!';
+    } else {
+      console.log("Максимальная громкость!");
+      return "Максимальная громкость!";
     }
   }
   volumeSubtract(vol) {
-    if (this.volume > 0)
-    {
-      if (this.volume - vol > 0)
-      {
+    if (this.volume > 0) {
+      if (this.volume - vol > 0) {
         this.volume -= vol;
-        console.log('Звук убавлен на: ' + vol);
-        return 'Звук убавлен на: ' + vol;
+        console.log("Звук убавлен на: " + vol);
+        return "Звук убавлен на: " + vol;
       } else {
-        console.log('Нельзя убавить на столько тихо!');
-        return 'Нельзя убавить на столько тихо!';
+        console.log("Нельзя убавить на столько тихо!");
+        return "Нельзя убавить на столько тихо!";
       }
-    }
-    else {
-      console.log('Минимальная громкость громкость!');
-      return 'Минимальная громкость громкость!';
+    } else {
+      console.log("Минимальная громкость громкость!");
+      return "Минимальная громкость громкость!";
     }
   }
   next() {
@@ -75,9 +69,8 @@ class PlayerList {
   }
   mixing() {
     if (this.songs && this.songs.length !== 0) {
-      for(var i = this.songs.length -1; i > 0; i--)
-      {
-        var j = Math.floor(Math.random() * (i+1));
+      for (var i = this.songs.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
         [this.songs[i], this.songs[j]] = [this.songs[j], this.songs[i]];
       }
     }
@@ -90,28 +83,33 @@ class PlayerList {
 class Player {
   constructor(playerList) {
     this.playerList = new PlayerList(playerList);
-    this.status = 'stop';
+    this.status = "stop";
   }
   display() {
     if (this.playerList.songs.length > 0) {
-      return 'Track: ' + this.playerList.getCurrentTrack() + ' - Status: ' + this.status;
+      return (
+        "Track: " +
+        this.playerList.getCurrentTrack() +
+        " - Status: " +
+        this.status
+      );
     } else {
-      return 'Empty';
+      return "Empty";
     }
   }
   play() {
     if (this.playerList.songs.length > 0) {
-      this.status = 'play';
+      this.status = "play";
     }
   }
   pause() {
     if (this.playerList.songs.length > 0) {
-      this.status = 'pause';
+      this.status = "pause";
     }
   }
   stop() {
     if (this.playerList.songs.length > 0) {
-      this.status = 'stop';
+      this.status = "stop";
     }
   }
   volumeAdd(vol) {
@@ -130,7 +128,10 @@ class Player {
     this.playerList.mixing();
   }
 }
-const player = new Player([new Song('Noize', 1),
-new Song('Two', 2), new Song('Three', 3)]);
+const player = new Player([
+  new Song("One", 1),
+  new Song("Two", 2),
+  new Song("Three", 3)
+]);
 
-module.exports = {Player,Song};
+module.exports = { Player, Song };
